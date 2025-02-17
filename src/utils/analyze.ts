@@ -3,9 +3,7 @@ import { hexaFragTransitions, type Action } from "./hexaStrategy";
 import { MarkovTransitions } from './markov';
 import { fragCostMultiplier, maxMainLevel } from './hexaTable';
 
-export const analyzeData = (strategy: Action[][], goalProb: number, data: {goal: number, fragPrice: number, isSunday: boolean, batch: number | undefined, goalProb: number}) => {
-    goalProb = data.goalProb;
-  
+export const analyzeData = (strategy: Action[][], goalProb: number, data: {goal: number, fragPrice: number, isSunday: boolean, batch: number | undefined}) => {
     const transitions = hexaFragTransitions(strategy, data.isSunday);
     const init = new Map([[{main: 0, progress: 0, frag: 0}, 1]]);
 
@@ -68,7 +66,7 @@ export const analyzeData = (strategy: Action[][], goalProb: number, data: {goal:
             }
         });
     
-        if (sum > data.goalProb / 100)
+        if (sum > goalProb / 100)
             break;
     }
 

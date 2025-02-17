@@ -14,8 +14,6 @@ import {
     BarElement,
 } from 'chart.js'
 
-import { maxMainLevel } from '../utils/hexaTable';
-
 ChartJS.register(
     Title,
     Tooltip,
@@ -31,6 +29,8 @@ ChartJS.register(
 const props = defineProps<{
     data: {distData: number[], accData: number[][], mean: {frag: number, reset: number}, batch: number}
 }>();
+
+props;
 
 const chartColor = '#a682e2';
 

@@ -38,6 +38,8 @@ const props = defineProps<{
     }
 }>();
 
+props;
+
 
 const chartColor = [
   '#563292', '#6a46a6',
