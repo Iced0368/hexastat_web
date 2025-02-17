@@ -6,7 +6,7 @@ export type MarkovComplexState = MarkovState | Object;
 export type MarkovTable = [[MarkovComplexState, MarkovComplexState], number][];
 
 function matPow(mat: MarkovMatrix, n: number, format?: "dense" | "sparse") {
-    let result = mathjs.identity(mat.size(), format ?? "dense");
+    let result = mathjs.identity(mat.size(), format ?? "sparse") as MarkovMatrix;
 
     while (n) {
         if (n & 1) result = mathjs.multiply(result, mat);
@@ -88,7 +88,7 @@ export class MarkovTransitions {
         for (let [[from, to], prob] of this.transitions)
             mat[this.stateIndex.get(from)!][this.stateIndex.get(to)!] = Number(prob);
 
-        return mathjs.matrix(mat, format ?? "dense", "number");
+        return mathjs.matrix(mat, format ?? "sparse", "number");
     }
 
     /**
@@ -131,7 +131,7 @@ export class MarkovTransitions {
      */
     transfer(init: Record<MarkovState, number> | Map<MarkovComplexState, number>, n: number, format?: "dense" | "sparse") {
         const initVector = this.encode(init);
-        const transferred = mathjs.multiply(mathjs.matrix(initVector), matPow(this.getMatrix(format ?? "dense"), n));
+        const transferred = mathjs.multiply(mathjs.matrix(initVector), mathjs.matrix(matPow(this.getMatrix(format ?? "sparse"), n), "dense"));
         return this.decode(transferred);
     }
 }
