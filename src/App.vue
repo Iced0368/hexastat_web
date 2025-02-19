@@ -82,12 +82,14 @@ const handleSubmit = (data: {goal: number, fragPrice: number, isSunday: boolean,
   }
 
   main {
-    display: inline-block;
-    flex-direction: column;
     width: 800px;
   }
 
-  @media (max-width: 800px) {
+  aside {
+    width: 250px;
+  }
+
+  @media (max-width: 1100px) {
     .container {
       flex-direction: column-reverse;
       width: 90%;
