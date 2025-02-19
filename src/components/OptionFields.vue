@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { fragCostMultiplier, maxMainLevel } from '../utils/hexaTable';
+import { maxMainLevel } from '../utils/hexaTable';
 
 const emit = defineEmits();
 
@@ -30,7 +30,8 @@ watch(fragPrice, (newValue) => {
 
 watch(batch, (newValue) => {
     const batchNumber = Number(newValue);
-    batchInvalid.value = newValue !== "" || isNaN(batchNumber);
+    console.log(batchNumber, )
+    batchInvalid.value = newValue !== "" && isNaN(batchNumber);
 });
 
 watch(goalProb, (newValue) => {
