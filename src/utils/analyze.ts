@@ -39,8 +39,8 @@ export const analyzeData = (strategy: Action[][], goalProb: number, data: {goal:
 
     const fragCostMean = mathjs.multiply(initVector, N, costVector) as mathjs.Complex;
   
-    const batch = data.batch === undefined ?  Math.ceil(fragCostMean.re / 20) : data.batch / fragCostMultiplier;
-  
+    const batch = Math.max(Math.ceil(fragCostMean.re / 100), data.batch === undefined ?  Math.ceil(fragCostMean.re / 20) : Math.floor(data.batch / fragCostMultiplier));
+
     let vector = mathjs.matrix(transitions.encode(init));
     const M = mathjs.pow(transitions.getMatrix("sparse"), batch);
   
